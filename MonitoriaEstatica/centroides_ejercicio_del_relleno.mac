@@ -1,0 +1,27 @@
+/* EJERCICIO DE CENTROIDES
+   Coeficientes de la función de un relleno dadas unas condiciones. 
+   -----------------------------------------------------------------------------
+   Hecho por : Michael Heredia Pérez.
+   Fecha     : Junio / 2020.
+   Correo    : mherediap@unal.edu.Correo
+   Universidad Nacional de Colombia sede Manizales.                           
+   -------------------------------------------------------------------------- */
+
+kill(all)$              /* Se borra la memoria.                               */ 
+ratprint  : false$      /* No muestra el mensaje "rat: replace".              */
+keepfloat : true$       /* No racionalizar numeros en coma flotante.          */
+
+/* Defino la función del relleno. */
+y(x) := a*x - b*x^3$
+
+/* La primera condición es el tamaño que tiene el relleno. */
+cond : y(100) = 0
+
+/* Calculo el área del relleno. */
+A : integrate(y(x), x, 0, 100)$
+
+/* Luego sabemos que el centroide en y vale 10 m. */
+y_c : 10 = 1/A * integrate(y(x)^2/2, x, 0, 100)$
+
+/* Finalmente, debo resolver el sistema de ecuaciones dado. */
+coeficientes : solve([cond, y_c], [a, b]), numer;
